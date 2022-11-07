@@ -713,7 +713,7 @@ class Interface:
             map(str, result)) + print_lambda + '\n'.join(map(str, lambdas)))
         file.close()
 
-        if self.gr5.get() == True:
+        if self.gr5.get():
             os.startfile(self.dataOutput.get())
         return Y_norm, Y_data, X1_norm, X2_norm, X3_norm, lambdas, alphas, result
 
