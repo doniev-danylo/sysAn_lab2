@@ -229,13 +229,15 @@ class Interface:
         pred_v = np.array([self.calc(X1_norm[i], X2_norm[i], X3_norm[i], lambdas, alphas, result, y_number) for i in
                            range(sample_count)])
 
+
         if not norm_v:
             pred_v = pred_v * (Y_data.max() - Y_data.min()) + (Y_data.min())
-
         error_value = self.error_value = np.linalg.norm(true_v - pred_v, ord=2)
+        print(error_value)
         self.l["text"] = "error = " + ("%.6f" % error_value)
-
+        plt.figure(figsize=[10, 10])
         if self.gr6.get() == True:
+            plt.subplot(2, 1, 1)
             if (true_value):
                 plt.plot(np.arange(sample_count), true_v, 'o', label='true value')
             if (pred_value):
@@ -244,8 +246,13 @@ class Interface:
             plt.ylabel('value')
             plt.legend()
             plt.title("True and predicate values of data\n Error = %.6f" % error_value)
+            plt.subplot(2, 1, 2)
+            plt.plot(np.arange(sample_count), (true_v - pred_v), label='true value')
+            plt.title("error")
+
             plt.show()
 
+        plt.subplot(2, 1, 1)
         if (true_value):
             plt.plot(np.arange(sample_count), true_v, label='true value')
 
@@ -255,6 +262,10 @@ class Interface:
         plt.ylabel('value')
         plt.legend()
         plt.title("True and predicate values of data\n Error = %.6f" % error_value)
+        plt.subplot(2, 1, 2)
+        plt.plot(np.arange(sample_count), (true_v - pred_v), label='true value')
+        plt.title("error")
+
         plt.show()
 
     def graphik_lite(self):
@@ -269,7 +280,7 @@ class Interface:
 
         if not norm_v:
             pred_v = pred_v * (Y_data.max() - Y_data.min()) + (Y_data.min())
-
+        print(true_v - pred_v, np.linalg.norm(true_v - pred_v, ord=2))
         self.error_value = np.linalg.norm(true_v - pred_v, ord=2)
         self.l["text"] = "error = " + ("%.6f" % self.error_value)
 
