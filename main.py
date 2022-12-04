@@ -280,7 +280,6 @@ class Interface:
 
         if not norm_v:
             pred_v = pred_v * (Y_data.max() - Y_data.min()) + (Y_data.min())
-        print(true_v - pred_v, np.linalg.norm(true_v - pred_v, ord=2))
         self.error_value = np.linalg.norm(true_v - pred_v, ord=2)
         self.l["text"] = "error = " + ("%.6f" % self.error_value)
 
@@ -294,10 +293,10 @@ class Interface:
         self.st3.set(1)
         self.graphik_lite()
         min_error = self.error_value
-        for x1_deg in np.arange(1, x1_max + 1):
-            print(x1_deg)
-            for x2_deg in np.arange(1, x2_max + 1):
-                for x3_deg in np.arange(1, x3_max + 1):
+        from tqdm import tqdm
+        for x1_deg in tqdm(np.arange(1, x1_max + 1)):
+            for x2_deg in  (np.arange(1, x2_max + 1)):
+                for x3_deg in  (np.arange(1, x3_max + 1)):
                     degrees = np.array((x1_deg, x2_deg, x3_deg)).astype(int)
                     self.st1.set(x1_deg)
                     self.st2.set(x2_deg)
@@ -365,8 +364,7 @@ class Interface:
         print_ = ""
 
         for phi_idx in range(phi_count):
-            print_ += (
-                              "Ф%d(x₁, x₂, x₃) = %.6f * Ф%d1(x₁) + %.6f * Ф%d2(x₂) + %.6f * Ф%d3(x₃)" % (
+            print_ += (  "Ф%d(x₁, x₂, x₃) = %.6f * Ф%d1(x₁) + %.6f * Ф%d2(x₂) + %.6f * Ф%d3(x₃)" % (
                           phi_idx + 1, result[phi_idx][0], phi_idx + 1, result[phi_idx][1], phi_idx + 1,
                           result[phi_idx][2], phi_idx + 1)) + "\n\n"
         print_ += "-" * 110
